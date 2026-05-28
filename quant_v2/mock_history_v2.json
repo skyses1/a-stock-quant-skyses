@@ -1,0 +1,902 @@
+[
+  {
+    "date": 20260000,
+    "open": 100.0,
+    "close": 100.77094056453133,
+    "high": 102.45297763322522,
+    "low": 99.42188809099333,
+    "next_day_open": 101.00150362664247,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260001,
+    "open": 100.0,
+    "close": 100.40508754804645,
+    "high": 101.76838442361179,
+    "low": 98.78501356508032,
+    "next_day_open": 101.28765040432002,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260002,
+    "open": 100.0,
+    "close": 101.89899532262719,
+    "high": 103.7328549389424,
+    "low": 101.28398318835796,
+    "next_day_open": 101.61481466882762,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260003,
+    "open": 100.0,
+    "close": 101.35376523898768,
+    "high": 102.78089952619518,
+    "low": 100.82079346381673,
+    "next_day_open": 102.04421714028058,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260004,
+    "open": 105.0,
+    "close": 110.0,
+    "high": 110.0,
+    "low": 105.0,
+    "next_day_open": 112.0,
+    "is_limit_up": true
+  },
+  {
+    "date": 20260005,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260006,
+    "open": 100.0,
+    "close": 100.90297217475366,
+    "high": 102.037230604057,
+    "low": 100.043207077205,
+    "next_day_open": 100.30193069544808,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260007,
+    "open": 99.0,
+    "close": 95.0,
+    "high": 99.0,
+    "low": 94.0,
+    "next_day_open": 94.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260008,
+    "open": 100.0,
+    "close": 98.72061091418486,
+    "high": 99.45779729624807,
+    "low": 96.847543537465,
+    "next_day_open": 98.66165054382661,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260009,
+    "open": 100.0,
+    "close": 98.92312941150155,
+    "high": 100.55031017015686,
+    "low": 97.64136451670858,
+    "next_day_open": 98.02976792010374,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260010,
+    "open": 100.0,
+    "close": 99.08009064906345,
+    "high": 100.94389546386802,
+    "low": 98.12318120818655,
+    "next_day_open": 99.14636328185719,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260011,
+    "open": 100.0,
+    "close": 100.9686441729954,
+    "high": 102.87344545296796,
+    "low": 99.93223606824914,
+    "next_day_open": 99.87710654176492,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260012,
+    "open": 95.0,
+    "close": 90.0,
+    "high": 95.0,
+    "low": 90.0,
+    "next_day_open": 88.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260013,
+    "open": 100.0,
+    "close": 99.97398666338232,
+    "high": 101.13745080183519,
+    "low": 99.33570592186946,
+    "next_day_open": 98.82514095781137,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260014,
+    "open": 100.0,
+    "close": 101.08944288035713,
+    "high": 102.73070317823581,
+    "low": 99.97711605385442,
+    "next_day_open": 101.17217506980735,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260015,
+    "open": 100.0,
+    "close": 97.8339211216563,
+    "high": 98.7539205729973,
+    "low": 96.991538386293,
+    "next_day_open": 97.70331467908662,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260016,
+    "open": 100.0,
+    "close": 100.1316963380863,
+    "high": 102.09531491576446,
+    "low": 99.59118294834495,
+    "next_day_open": 99.72304033686949,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260017,
+    "open": 100.0,
+    "close": 98.49962184967941,
+    "high": 99.8848649619906,
+    "low": 97.69158496050986,
+    "next_day_open": 98.72214791452073,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260018,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260019,
+    "open": 100.0,
+    "close": 100.32198743820442,
+    "high": 101.48426950791801,
+    "low": 99.01510240441823,
+    "next_day_open": 100.20290939814478,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260020,
+    "open": 100.0,
+    "close": 100.23449920120356,
+    "high": 102.02302797191933,
+    "low": 98.6103943436017,
+    "next_day_open": 100.85192442630354,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260021,
+    "open": 105.0,
+    "close": 110.0,
+    "high": 110.0,
+    "low": 105.0,
+    "next_day_open": 112.0,
+    "is_limit_up": true
+  },
+  {
+    "date": 20260022,
+    "open": 100.0,
+    "close": 99.29060318326931,
+    "high": 99.97607964603,
+    "low": 98.4425063118212,
+    "next_day_open": 98.97382352969498,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260023,
+    "open": 95.0,
+    "close": 90.0,
+    "high": 95.0,
+    "low": 90.0,
+    "next_day_open": 88.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260024,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260025,
+    "open": 100.0,
+    "close": 100.59389603980463,
+    "high": 102.56526496592838,
+    "low": 98.87934006346188,
+    "next_day_open": 100.47318063644849,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260026,
+    "open": 100.0,
+    "close": 98.87233498648179,
+    "high": 100.33425121840952,
+    "low": 97.68595909079282,
+    "next_day_open": 98.73991501778873,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260027,
+    "open": 100.0,
+    "close": 97.84772120177561,
+    "high": 98.45304459396822,
+    "low": 96.47540185127177,
+    "next_day_open": 97.64520920130049,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260028,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260029,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260030,
+    "open": 100.0,
+    "close": 100.79618317117685,
+    "high": 101.37212677361963,
+    "low": 100.24247095430135,
+    "next_day_open": 100.72516744695446,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260031,
+    "open": 100.0,
+    "close": 98.94268018237294,
+    "high": 100.35229555643068,
+    "low": 97.51605627324203,
+    "next_day_open": 99.45901114850592,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260032,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260033,
+    "open": 99.0,
+    "close": 95.0,
+    "high": 99.0,
+    "low": 94.0,
+    "next_day_open": 94.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260034,
+    "open": 100.0,
+    "close": 99.25470670802076,
+    "high": 100.59698215088758,
+    "low": 98.28913711581657,
+    "next_day_open": 99.46106493799722,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260035,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260036,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260037,
+    "open": 100.0,
+    "close": 99.44662676508274,
+    "high": 100.8287716885945,
+    "low": 98.05900210529208,
+    "next_day_open": 99.23496214190376,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260038,
+    "open": 100.0,
+    "close": 99.25162843402136,
+    "high": 99.91246334490732,
+    "low": 98.16489008594138,
+    "next_day_open": 99.46227929567132,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260039,
+    "open": 99.0,
+    "close": 95.0,
+    "high": 99.0,
+    "low": 94.0,
+    "next_day_open": 94.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260040,
+    "open": 100.0,
+    "close": 100.66311880667853,
+    "high": 101.76062339660258,
+    "low": 99.93274341156959,
+    "next_day_open": 100.27189013258672,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260041,
+    "open": 99.0,
+    "close": 95.0,
+    "high": 99.0,
+    "low": 94.0,
+    "next_day_open": 94.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260042,
+    "open": 100.0,
+    "close": 100.23130982568682,
+    "high": 101.24806984165862,
+    "low": 98.77913536885156,
+    "next_day_open": 99.92498320713115,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260043,
+    "open": 100.0,
+    "close": 100.2332000846861,
+    "high": 101.42042260655862,
+    "low": 98.48639513130695,
+    "next_day_open": 100.0460500658223,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260044,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260045,
+    "open": 100.0,
+    "close": 99.47826755198214,
+    "high": 101.04684143664193,
+    "low": 98.76518665089395,
+    "next_day_open": 99.17542629304467,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260046,
+    "open": 100.0,
+    "close": 99.02236199318284,
+    "high": 99.94417648215982,
+    "low": 98.47853326211619,
+    "next_day_open": 99.40628213294583,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260047,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260048,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260049,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260050,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260051,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260052,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260053,
+    "open": 99.0,
+    "close": 95.0,
+    "high": 99.0,
+    "low": 94.0,
+    "next_day_open": 94.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260054,
+    "open": 100.0,
+    "close": 99.4954472158267,
+    "high": 100.95144113338984,
+    "low": 97.86244854854415,
+    "next_day_open": 99.80913668505087,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260055,
+    "open": 105.0,
+    "close": 110.0,
+    "high": 110.0,
+    "low": 105.0,
+    "next_day_open": 112.0,
+    "is_limit_up": true
+  },
+  {
+    "date": 20260056,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260057,
+    "open": 105.0,
+    "close": 110.0,
+    "high": 110.0,
+    "low": 105.0,
+    "next_day_open": 112.0,
+    "is_limit_up": true
+  },
+  {
+    "date": 20260058,
+    "open": 100.0,
+    "close": 99.85453615197828,
+    "high": 100.69539347195781,
+    "low": 97.93898005215858,
+    "next_day_open": 100.44109061945457,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260059,
+    "open": 99.0,
+    "close": 95.0,
+    "high": 99.0,
+    "low": 94.0,
+    "next_day_open": 94.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260060,
+    "open": 100.0,
+    "close": 100.36393322271145,
+    "high": 101.5885044556557,
+    "low": 98.80289495889046,
+    "next_day_open": 100.87156309583618,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260061,
+    "open": 100.0,
+    "close": 99.43156958238536,
+    "high": 100.97221611751296,
+    "low": 98.15698435452003,
+    "next_day_open": 99.77965649997145,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260062,
+    "open": 100.0,
+    "close": 97.91339897389506,
+    "high": 98.68685630016574,
+    "low": 96.59169507958104,
+    "next_day_open": 98.44899188588896,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260063,
+    "open": 95.0,
+    "close": 90.0,
+    "high": 95.0,
+    "low": 90.0,
+    "next_day_open": 88.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260064,
+    "open": 100.0,
+    "close": 100.08558067138524,
+    "high": 100.6959336773719,
+    "low": 98.39622078146671,
+    "next_day_open": 100.08861092301908,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260065,
+    "open": 95.0,
+    "close": 90.0,
+    "high": 95.0,
+    "low": 90.0,
+    "next_day_open": 88.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260066,
+    "open": 100.0,
+    "close": 99.21756594009025,
+    "high": 100.04839002353704,
+    "low": 98.0827236242005,
+    "next_day_open": 98.79611517412849,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260067,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260068,
+    "open": 100.0,
+    "close": 99.43790103737561,
+    "high": 100.0160839729407,
+    "low": 97.94934493584532,
+    "next_day_open": 98.9963257950275,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260069,
+    "open": 100.0,
+    "close": 99.80471848215029,
+    "high": 100.72329582552433,
+    "low": 98.96023586806584,
+    "next_day_open": 100.00180668716384,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260070,
+    "open": 105.0,
+    "close": 110.0,
+    "high": 110.0,
+    "low": 105.0,
+    "next_day_open": 112.0,
+    "is_limit_up": true
+  },
+  {
+    "date": 20260071,
+    "open": 100.0,
+    "close": 100.20117690680762,
+    "high": 101.60687762119835,
+    "low": 99.534402508538,
+    "next_day_open": 100.28176887868155,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260072,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260073,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260074,
+    "open": 100.0,
+    "close": 99.76809076505941,
+    "high": 100.86516284767453,
+    "low": 99.20050970606812,
+    "next_day_open": 98.83862535555363,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260075,
+    "open": 95.0,
+    "close": 90.0,
+    "high": 95.0,
+    "low": 90.0,
+    "next_day_open": 88.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260076,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260077,
+    "open": 100.0,
+    "close": 98.6496440593055,
+    "high": 99.59862500732154,
+    "low": 97.94582319140157,
+    "next_day_open": 98.37393269605602,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260078,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260079,
+    "open": 105.0,
+    "close": 110.0,
+    "high": 110.0,
+    "low": 105.0,
+    "next_day_open": 112.0,
+    "is_limit_up": true
+  },
+  {
+    "date": 20260080,
+    "open": 100.0,
+    "close": 99.96098519772286,
+    "high": 101.57945692528226,
+    "low": 98.00176482580447,
+    "next_day_open": 100.3439156558111,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260081,
+    "open": 95.0,
+    "close": 90.0,
+    "high": 95.0,
+    "low": 90.0,
+    "next_day_open": 88.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260082,
+    "open": 100.0,
+    "close": 100.37692147362243,
+    "high": 101.98691943172496,
+    "low": 99.55399288181466,
+    "next_day_open": 100.83564484997444,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260083,
+    "open": 100.0,
+    "close": 100.07392538215521,
+    "high": 101.52132712825804,
+    "low": 98.25587103034259,
+    "next_day_open": 100.47420175527215,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260084,
+    "open": 100.0,
+    "close": 101.38794071363087,
+    "high": 102.5066031112742,
+    "low": 100.47229069048686,
+    "next_day_open": 102.17295202948985,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260085,
+    "open": 100.0,
+    "close": 100.0021020754719,
+    "high": 101.9976888056974,
+    "low": 98.43713506030821,
+    "next_day_open": 99.55371023321298,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260086,
+    "open": 95.0,
+    "close": 90.0,
+    "high": 95.0,
+    "low": 90.0,
+    "next_day_open": 88.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260087,
+    "open": 100.0,
+    "close": 100.89839821459947,
+    "high": 102.80592873465517,
+    "low": 99.88126377374172,
+    "next_day_open": 100.84226334153655,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260088,
+    "open": 100.0,
+    "close": 100.18655405718711,
+    "high": 100.83902541835015,
+    "low": 99.30609908356904,
+    "next_day_open": 100.02222869351806,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260089,
+    "open": 100.0,
+    "close": 99.67576447067769,
+    "high": 100.56272681654578,
+    "low": 98.19888731615941,
+    "next_day_open": 99.18008887517335,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260090,
+    "open": 100.0,
+    "close": 99.76236244071941,
+    "high": 100.76304277757698,
+    "low": 99.08291109454916,
+    "next_day_open": 100.19920257613538,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260091,
+    "open": 100.0,
+    "close": 99.40836864460026,
+    "high": 100.02403841433147,
+    "low": 98.126828472247,
+    "next_day_open": 98.62661692431067,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260092,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260093,
+    "open": 95.0,
+    "close": 90.0,
+    "high": 95.0,
+    "low": 90.0,
+    "next_day_open": 88.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260094,
+    "open": 100.0,
+    "close": 98.86240989762534,
+    "high": 99.83652575791807,
+    "low": 98.22720997012726,
+    "next_day_open": 98.51336943514343,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260095,
+    "open": 100.0,
+    "close": 101.826168473115,
+    "high": 103.81015042101741,
+    "low": 101.3131782267315,
+    "next_day_open": 101.23591734401977,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260096,
+    "open": 100.0,
+    "close": 99.28803169501566,
+    "high": 100.50532799600224,
+    "low": 98.35153499073921,
+    "next_day_open": 99.73043040394039,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260097,
+    "open": 98.0,
+    "close": 101.0,
+    "high": 101.5,
+    "low": 96.0,
+    "next_day_open": 101.0,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260098,
+    "open": 100.0,
+    "close": 100.45912842771352,
+    "high": 101.9293190391106,
+    "low": 99.18118846154925,
+    "next_day_open": 101.20642884660634,
+    "is_limit_up": false
+  },
+  {
+    "date": 20260099,
+    "open": 100.0,
+    "close": 100.09474695855425,
+    "high": 101.93483601272612,
+    "low": 98.99906205264416,
+    "next_day_open": 99.08089446958913,
+    "is_limit_up": false
+  }
+]
