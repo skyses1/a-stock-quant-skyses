@@ -92,6 +92,125 @@ def init_db():
         )
     ''')
 
+    # 5. 进化与决策记录表 (新增)
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS evolution_runs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            run_id TEXT UNIQUE,
+            run_type TEXT,
+            train_start TEXT, train_end TEXT,
+            test_start TEXT, test_end TEXT,
+            candidate_version TEXT, champion_version TEXT,
+            candidate_return REAL, champion_return REAL,
+            candidate_max_drawdown REAL, champion_max_drawdown REAL,
+            candidate_hit_rate REAL, champion_hit_rate REAL,
+            decision TEXT, reason TEXT,
+            created_at TEXT NOT NULL
+        )
+    ''')
+    
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS gatekeeper_decisions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            evolution_run_id INTEGER NOT NULL,
+            rule_name TEXT NOT NULL,
+            rule_result TEXT NOT NULL,
+            rule_detail TEXT,
+            created_at TEXT NOT NULL,
+            FOREIGN KEY(evolution_run_id) REFERENCES evolution_runs(id)
+        )
+    ''')
+    
+    # 6. P1 新增：配置表 (Config Tables - 消除硬编码)
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS replay_configs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            config_name TEXT NOT NULL,
+            cutoff_time TEXT NOT NULL, -- e.g., "08:00:00"
+            timezone TEXT NOT NULL DEFAULT "Asia/Shanghai",
+            universe TEXT NOT NULL DEFAULT "index",
+            benchmark TEXT NOT NULL DEFAULT "sh000001",
+            start_date TEXT,
+            end_date TEXT,
+            created_at TEXT NOT NULL
+        )
+    ''')
+    
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS trading_cost_configs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            config_name TEXT NOT NULL,
+            commission_rate REAL NOT NULL DEFAULT 0.0003,
+            min_commission REAL NOT NULL DEFAULT 5.0,
+            stamp_tax_sell REAL NOT NULL DEFAULT 0.0005,
+            transfer_fee REAL NOT NULL DEFAULT 0.00001,
+            slippage_bps REAL NOT NULL DEFAULT 20.0,
+            limit_buy_policy TEXT NOT NULL DEFAULT "limit_up_reject",
+            status TEXT NOT NULL DEFAULT "active",
+            created_at TEXT NOT NULL
+        )
+    ''')
+    
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS gatekeeper_configs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            config_name TEXT NOT NULL,
+            min_sample_size INTEGER NOT NULL DEFAULT 60,
+            min_excess_return REAL NOT NULL DEFAULT 0.03,
+            max_drawdown_not_worse INTEGER NOT NULL DEFAULT 0,
+            max_turnover_increase REAL NOT NULL DEFAULT 1.5,
+            min_win_rate_delta REAL NOT NULL DEFAULT 0.0,
+            min_profit_factor REAL NOT NULL DEFAULT 1.1,
+            status TEXT NOT NULL DEFAULT "active",
+            created_at TEXT NOT NULL
+        )
+    ''')
+    
+    # 7. P1 新增：版本历史与回滚 (Version History)
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS strategy_version_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            old_version TEXT,
+            new_version TEXT,
+            promoted_at TEXT,
+            promoted_by TEXT,
+            reason TEXT,
+            backtest_metrics TEXT,
+            rollback_to_version TEXT,
+            status TEXT NOT NULL DEFAULT "active"
+        )
+    ''')
+
+    # 8. 补充 strategy_params 缺失字段
+    try:
+        c.execute("ALTER TABLE strategy_params ADD COLUMN train_start TEXT")
+        c.execute("ALTER TABLE strategy_params ADD COLUMN train_end TEXT")
+        c.execute("ALTER TABLE strategy_params ADD COLUMN test_start TEXT")
+        c.execute("ALTER TABLE strategy_params ADD COLUMN test_end TEXT")
+    except:
+        pass # 字段可能已存在
+
+    # 9. 初始化默认配置 (如果表是空的)
+    c.execute("SELECT count(*) FROM replay_configs WHERE config_name = 'default'")
+    if c.fetchone()[0] == 0:
+        c.execute('''
+            INSERT INTO replay_configs 
+            (config_name, cutoff_time, timezone, universe, benchmark, created_at) 
+            VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        ''', ('default', '08:00:00', 'Asia/Shanghai', 'index', 'sh000001'))
+        
+        c.execute('''
+            INSERT INTO trading_cost_configs 
+            (config_name, commission_rate, stamp_tax_sell, slippage_bps, created_at) 
+            VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+        ''', ('default', 0.0003, 0.0005, 20.0))
+        
+        c.execute('''
+            INSERT INTO gatekeeper_configs 
+            (config_name, min_sample_size, min_excess_return, status, created_at) 
+            VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+        ''', ('default', 30, 0.02, 'active'))
+
     conn.commit()
     conn.close()
     return True

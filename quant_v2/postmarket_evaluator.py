@@ -29,6 +29,18 @@ def evaluate_prediction(trade_date, prediction_id):
         WHERE ps.id = ?
     """, (prediction_id,)).fetchone()
     
+    # 获取交易成本配置 (从数据库读取，不再硬编码)
+    cost_config = conn.execute("SELECT * FROM trading_cost_configs WHERE status = 'active' LIMIT 1").fetchone()
+    if cost_config:
+        slippage_bps = cost_config['slippage_bps']
+        commission_rate = cost_config['commission_rate']
+        stamp_tax_sell = cost_config['stamp_tax_sell']
+    else:
+        # Fallback defaults
+        slippage_bps = 20.0
+        commission_rate = 0.0003
+        stamp_tax_sell = 0.0005
+
     # 2. 获取 T 日真实收盘 (reality)
     reality = conn.execute("""
         SELECT symbol, open, close, high, low, pct_change 
@@ -52,9 +64,9 @@ def evaluate_prediction(trade_date, prediction_id):
     else:
         portfolio_ret = -benchmark_ret * 0.5
         
-    # 扣除交易成本 (假设调仓一次)
-    slippage = TRADING_FEES['slippage_rate']
-    tax_fee = TRADING_FEES['commission_rate'] + TRADING_FEES['stamp_tax_rate']
+    # 扣除交易成本 (使用配置参数)
+    slippage = slippage_bps / 10000
+    tax_fee = commission_rate + stamp_tax_sell # 假设双向佣金，单向印花税
     cost = slippage + tax_fee
     
     net_ret = portfolio_ret - cost

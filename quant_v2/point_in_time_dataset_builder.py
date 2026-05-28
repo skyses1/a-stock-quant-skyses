@@ -83,13 +83,13 @@ def build_feature_snapshot(trade_date, as_of_time="08:00:00", strategy_version="
     
     feature_hash = hashlib.sha256(feature_payload.encode()).hexdigest()
     
-    # 写入数据库
+    # 写入数据库 (默认状态 pending，等待审计)
     conn.execute("""
         INSERT OR IGNORE INTO feature_snapshots 
         (trade_date, as_of_time, strategy_version, feature_set_hash, 
          market_features_json, macro_features_json, polymarket_features_json, 
          leakage_check_status, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, 'passed', CURRENT_TIMESTAMP)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', CURRENT_TIMESTAMP)
     """, (
         trade_date, cutoff_time, strategy_version, feature_hash,
         json.dumps(market_features), json.dumps(macro_features), json.dumps(polymarket_features)
@@ -103,5 +103,24 @@ def build_feature_snapshot(trade_date, as_of_time="08:00:00", strategy_version="
     """, (trade_date, cutoff_time)).fetchone()[0]
     
     conn.close()
-    print(f"✅ 特征快照构建成功 (ID: {feat_id}), SQL 严格过滤 <= Cutoff，审计通过。")
+    
+    # 运行未来函数审计 (严格模式)
+    from leakage_auditor import audit_feature_snapshot
+    is_safe, logs = audit_feature_snapshot(trade_date, cutoff_time, feat_id)
+    
+    # 更新审计状态
+    conn = get_conn()
+    conn.execute("""
+        UPDATE feature_snapshots SET leakage_check_status = ? WHERE id = ?
+    """, ("passed" if is_safe else "failed", feat_id))
+    conn.commit()
+    conn.close()
+    
+    if not is_safe:
+        print(f"🚨 审计失败: {trade_date} 存在未来函数泄漏风险！已阻断。")
+        for log in logs:
+            print(f"   📝 {log['violation_type']}: {log['detail']}")
+        return None # 阻断构建
+        
+    print(f"✅ 特征快照构建成功 (ID: {feat_id}), 审计通过。")
     return feat_id
