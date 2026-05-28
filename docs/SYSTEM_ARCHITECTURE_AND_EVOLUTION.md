@@ -18,7 +18,7 @@
 
 ## 2. 系统架构 (System Architecture)
 
-系统采用轻量级微服务架构，专为 Hermes Agent 的沙箱/云端环境设计（无重型依赖如 PyTorch/AKShare）。
+系统采用轻量级脚本化 Agent 架构 (Prototype/Alpha)，专为 Hermes Agent 的沙箱/云端环境设计（无重型依赖如 PyTorch/AKShare）。
 
 ### 2.1 模块拓扑
 
@@ -27,7 +27,7 @@ graph TD
     User[用户 / 终端] --> Agent[Hermes Agent]
     
     subgraph Data_Layer [数据层 (无状态)]
-        API_PM[Polymarket API (宏观)]
+        API_PM[Polymarket API (Macro Placeholder)]
         API_TX[Tencent API (实时行情)]
         API_EM[Eastmoney API (资金流)]
     end
@@ -79,7 +79,7 @@ graph TD
 
 **输出：** 0-100 分的系统评分，直接决定建议仓位（如：>80 分建议重仓）。
 
-### 3.2 动态 ATR 止损 (Dynamic ATR Stop Loss)
+### 3.2 动态 ATR 止损 (Daily Range Proxy Stop Loss (Config-Driven))
 摒弃“固定 5% 止损”的散户思维，引入机构级的波动率自适应止损。
 
 **逻辑：**

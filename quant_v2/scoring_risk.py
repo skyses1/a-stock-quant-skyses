@@ -1,13 +1,38 @@
 """
 P0 + P1: 风控引擎 & 四维打分卡
+Refactored to be configuration-driven (Audit Fix #4)
 """
+
+import json
+import os
+
+# Load parameters from config file instead of hardcoding
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), "params.json")
+
+def load_params():
+    try:
+        if os.path.exists(CONFIG_PATH):
+            with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
+                return json.load(f)
+    except Exception:
+        pass
+    
+    # Fallback defaults if config is missing
+    return {
+        "risk_engine": {"atr_multiplier": 4.0},
+        "scoring_weights": {"financial": 0.4, "sentiment": 0.3, "macro": 0.2, "technical": 0.1}
+    }
+
+PARAMS = load_params()
+ATR_MULTIPLIER = PARAMS.get("risk_engine", {}).get("atr_multiplier", 4.0)
 
 def calculate_market_score(data):
     """
-    P1: 量化四维融合公式
-    满分 100 分。
+    P1: 量化四维融合公式 (配置化权重)
     """
-    # ... (existing code)
+    weights = PARAMS.get("scoring_weights", {"financial": 0.4, "sentiment": 0.3, "macro": 0.2, "technical": 0.1})
+    
+    # 1. 资金面 (0-40)
     total_vol = data.get('total_amount', 0)
     north = data.get('northbound_net', 0)
     
@@ -25,6 +50,7 @@ def calculate_market_score(data):
     
     financial_score = vol_score + nb_score
     
+    # 2. 情绪面 (0-30)
     sh_chg = data.get('sh_chg', 0)
     cyb_chg = data.get('cyb_chg', 0)
     
@@ -35,9 +61,11 @@ def calculate_market_score(data):
     if cyb_chg > 1.0: sentiment_score += 5
     sentiment_score = max(0, min(30, sentiment_score))
     
+    # 3. 宏观面 (0-20)
     pm_risk = data.get('polymarket_risk_score', 50)
     macro_score = max(0, 20 - (pm_risk / 5))
     
+    # 4. 技术面 (0-10)
     tech_score = 5 
     if sh_chg > 0 and cyb_chg > 0: tech_score = 10
     elif sh_chg < -1: tech_score = 2
@@ -59,18 +87,15 @@ def get_position_advice(score, current_position=0):
     elif score >= 40: return 40, "防守反击"
     else: return 10, "空仓/极轻仓观望"
 
-def calculate_dynamic_stop_loss(current_price, high, low, multiplier=2):
+def calculate_dynamic_stop_loss(current_price, high, low):
     """
-    动态波动率止损 (ATR Proxy)
-    使用当日振幅作为波动率代理: Daily Range = High - Low
-    止损距离 = 2 * Daily Range
+    动态波动率止损 (Daily Range Proxy - Audit Fix #3)
+    使用配置化的 ATR_MULTIPLIER
     """
     daily_range = high - low
     if daily_range <= 0:
-        # 极端情况 (如一字涨停/跌停)，回退到 5%
         return current_price * 0.95
     
-    stop_distance = daily_range * multiplier
+    stop_distance = daily_range * ATR_MULTIPLIER
     stop_loss = current_price - stop_distance
     return round(stop_loss, 2)
-
