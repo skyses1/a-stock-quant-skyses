@@ -6,8 +6,7 @@ P2: 状态持久化 (SQLite)
 import sqlite3
 import os
 from datetime import datetime
-
-DB_PATH = "/home/admin/.hermes/scripts/quant_v2/quant_system.db"
+from config import DB_PATH
 
 def get_conn():
     conn = sqlite3.connect(DB_PATH)
@@ -40,13 +39,14 @@ def init_db():
             code TEXT,
             name TEXT,
             price REAL,
-            current_price REAL,
-            pnl_pct REAL,
             stop_loss REAL,
             target_position REAL,
             score INTEGER,
             logic TEXT,
-            status TEXT DEFAULT 'PENDING'
+            status TEXT DEFAULT 'PENDING',  -- PENDING, HIT_TP, HIT_SL, CLOSED
+            current_price REAL,
+            pnl_pct REAL,
+            update_time TEXT
         )
     ''')
 
@@ -55,9 +55,9 @@ def init_db():
         CREATE TABLE IF NOT EXISTS mapping_history (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             date TEXT,
-            event_category TEXT, -- e.g. 'Geopolitics', 'Crypto'
-            target_sector TEXT,  -- e.g. 'Gold', 'Tech'
-            success_score REAL   -- -1.0 to 1.0 based on next day performance
+            event_category TEXT,
+            target_sector TEXT,
+            success_score REAL
         )
     ''')
 
@@ -100,6 +100,61 @@ def save_recommendations(date, stocks):
     conn.commit()
     conn.close()
 
+def update_mark_to_market(stock_code, current_price, high=None, low=None):
+    """
+    任务 2: 每日盯市。更新持仓表现，检查是否触发止损。
+    """
+    conn = get_conn()
+    
+    # 获取当前记录
+    row = conn.execute("SELECT * FROM recommendations WHERE code = ? AND status = 'PENDING' ORDER BY date DESC LIMIT 1", (stock_code,)).fetchone()
+    
+    if not row:
+        conn.close()
+        return False
+
+    entry_price = row['price']
+    stop_loss = row['stop_loss']
+    pnl = (current_price - entry_price) / entry_price
+    
+    # 检查止损 (如果最低价触及)
+    new_status = 'PENDING'
+    if low is not None and low <= stop_loss:
+        new_status = 'HIT_SL'
+        pnl = (stop_loss - entry_price) / entry_price
+    # 也可以在这里加止盈逻辑 (比如 pnl > 0.10 -> HIT_TP)
+
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    conn.execute('''
+        UPDATE recommendations 
+        SET current_price = ?, pnl_pct = ?, status = ?, update_time = ?
+        WHERE id = ?
+    ''', (current_price, pnl, new_status, now, row['id']))
+    
+    conn.commit()
+    conn.close()
+    return True
+
+def get_pending_stocks():
+    """
+    获取所有尚未平仓的股票
+    """
+    conn = get_conn()
+    rows = conn.execute("SELECT * FROM recommendations WHERE status = 'PENDING'").fetchall()
+    conn.close()
+    return [dict(row) for row in rows]
+
+def get_history_for_evolution():
+    """
+    任务 1: 获取真实历史数据供进化引擎使用
+    """
+    conn = get_conn()
+    # 获取已平仓或已触发止损的记录
+    rows = conn.execute("SELECT * FROM recommendations WHERE status IN ('HIT_SL', 'HIT_TP', 'CLOSED')").fetchall()
+    conn.close()
+    return [dict(row) for row in rows]
+
 if __name__ == "__main__":
     init_db()
-    print("✅ Database initialized.")
+    print("✅ Database initialized with new schema.")

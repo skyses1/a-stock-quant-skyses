@@ -2,7 +2,6 @@
 """
 A股数据采集脚本 — 通过公开API获取实时行情数据
 数据源：腾讯行情 + 东方财富北向资金 + 东方财富行业资金流
-代理：http://5.5name.cn:10831
 """
 
 import json
@@ -10,8 +9,14 @@ import re
 import subprocess
 import time
 from datetime import datetime, timedelta
+import sys
+import os
 
-PROXY = "http://5.5name.cn:10831"
+# 引入配置
+sys.path.append(os.path.dirname(__file__))
+from config import HTTP_PROXY
+
+PROXY = HTTP_PROXY
 TIMEOUT = 15
 
 def curl(url, headers="", timeout=TIMEOUT, encoding="utf-8", retries=3):
