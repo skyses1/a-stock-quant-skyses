@@ -50,7 +50,35 @@ def init_db():
         )
     ''')
 
-    # 3. 映射关系历史 (用于动态学习)
+    # 3. 策略参数配置表 (P0 核心：替代 params.json 和源码修改)
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS strategy_params (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            param_name TEXT NOT NULL,
+            param_value REAL NOT NULL,
+            status TEXT DEFAULT 'active', -- active, candidate, shadow, rejected
+            version TEXT DEFAULT '1.0',
+            validation_score REAL DEFAULT 0,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+
+    # 初始化默认参数 (如果表是空的)
+    c.execute("SELECT count(*) FROM strategy_params")
+    if c.fetchone()[0] == 0:
+        defaults = [
+            ('atr_multiplier', 6.0, 'active'), # 根据之前的真实回测优化为 6.0
+            ('weight_financial', 0.40, 'active'),
+            ('weight_sentiment', 0.30, 'active'),
+            ('weight_macro', 0.20, 'active'),
+            ('weight_technical', 0.10, 'active'),
+            ('max_single_position', 0.20, 'active'),
+            ('stop_loss_pct', 0.05, 'active')
+        ]
+        c.executemany("INSERT INTO strategy_params (param_name, param_value, status) VALUES (?, ?, ?)", defaults)
+
+    # 4. 映射关系历史
     c.execute('''
         CREATE TABLE IF NOT EXISTS mapping_history (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

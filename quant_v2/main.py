@@ -84,7 +84,7 @@ def run():
 
 
     # 4. 持久化 (P2)
-    print("\n[3/4] 写入数据库...")
+    print("\n[3/5] 写入数据库...")
     today = quotes["sh000001"].get("trade_time", "")[:8]
     if not today:
         from datetime import datetime
@@ -103,6 +103,22 @@ def run():
     
     save_daily_snapshot(today, snapshot_data)
     print(f"  已保存今日快照: {today}")
+
+    # P2: 失效报警 (Kill Switch)
+    # 检查最近 5 次推荐表现
+    from db import get_pending_stocks
+    pending = get_pending_stocks()
+    recent_losses = 0
+    for stock in pending:
+        if stock.get('pnl_pct', 0) < -0.05: # 亏损超过 5%
+            recent_losses += 1
+    
+    kill_switch_active = recent_losses >= 3
+    if kill_switch_active:
+        print(f"\n  🚨 触发失效报警 (Kill Switch): 近期 {recent_losses} 只持仓严重亏损！")
+        print(f"  系统已自动降级：建议仓位强制调整为 10% (防守模式)")
+        advice = 10
+        style = "🚨 风控降级"
 
     # 5. 输出结果供 Agent 读取
     print("\n[4/4] 输出 JSON 结果...")
