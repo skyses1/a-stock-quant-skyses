@@ -63,3 +63,6 @@ python3 a_stock_data.py
 ## 📄 License
 
 Private Project - Skyses
+
+## 📚 文档
+- [系统使用手册 (Usage Manual)](docs/USAGE.md)
