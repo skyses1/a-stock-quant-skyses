@@ -5,6 +5,7 @@ P2: 状态持久化 (SQLite)
 
 import sqlite3
 import os
+import json # Fix: Missing import
 from datetime import datetime
 from config import DB_PATH
 
@@ -56,9 +57,11 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             param_name TEXT NOT NULL,
             param_value REAL NOT NULL,
-            status TEXT DEFAULT 'active', -- active, candidate, shadow, rejected
+            status TEXT DEFAULT 'active', -- active, candidate, shadow, rejected, archived
             version TEXT DEFAULT '1.0',
             validation_score REAL DEFAULT 0,
+            sample_size INTEGER DEFAULT 0,
+            max_drawdown REAL DEFAULT 0,
             created_at TEXT DEFAULT CURRENT_TIMESTAMP,
             updated_at TEXT DEFAULT CURRENT_TIMESTAMP
         )
@@ -176,12 +179,22 @@ def get_pending_stocks():
 def get_history_for_evolution():
     """
     任务 1: 获取真实历史数据供进化引擎使用
+    优先读取 DB，如果 DB 数据不足 (Sample < 5)，则回退读取 Mock 文件 (用于测试)
     """
     conn = get_conn()
-    # 获取已平仓或已触发止损的记录
     rows = conn.execute("SELECT * FROM recommendations WHERE status IN ('HIT_SL', 'HIT_TP', 'CLOSED')").fetchall()
     conn.close()
-    return [dict(row) for row in rows]
+    
+    real_data = [dict(row) for row in rows]
+    
+    if len(real_data) < 5:
+        mock_path = os.path.join(os.path.dirname(__file__), "mock_history_v2.json")
+        if os.path.exists(mock_path):
+            print("   ⚠️ DB 真实记录不足，回退使用 Mock 数据进行回测演示。")
+            with open(mock_path, 'r') as f:
+                return json.load(f)
+    
+    return real_data
 
 if __name__ == "__main__":
     init_db()
