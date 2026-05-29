@@ -1,95 +1,95 @@
-# 🇨🇳 A-Stock Quantitative Trading System (A 股量化系统)
+# 🇨🇳 A 股量化实战系统 (A-Stock Quant)
 
-> **⚠️ Project Status: v0.5-beta**  
-> This system is currently in the **Data Pipeline & Paper Trading (Virtual Observation)** phase.  
-> **Strategy Validity: NOT VALIDATED** (See Audit Report below).
+> **⚠️ 当前版本：v0.5-beta**
+> 本系统目前处于 **数据链路验证与虚拟盘观察** 阶段。
+> **策略有效性：未通过**（动量策略跑输等权基准，详见下方审计报告）。
 
-## 📖 Project Overview
+## 📖 项目简介
 
-A quantitative trading framework designed for the A-share market, integrating **macro-probability signals from Polymarket** with **micro-market data (Capital Flow, Northbound, Price/Volume)**.
+一套融合 **Polymarket 宏观预测概率** 与 **A 股微观资金数据** 的量化实战系统。
 
-The system acts as an **"Automated Trading Advisor"** that performs:
-1.  **Macro-Micro Mapping**: Translating global prediction market probabilities (e.g., rate cuts, geopolitics) into A-share sector opportunities.
-2.  **4D Scoring Card**: Quantitative scoring of market sentiment, capital flow, and technical resonance.
-3.  **Adaptive Risk Control**: Dynamic stop-loss logic based on intraday volatility (Daily Range Proxy), not fixed percentages.
-4.  **Self-Auditing**: Point-in-time data isolation to prevent look-ahead bias (Future Leakage).
-
----
-
-## 🧠 Core Working Principles
-
-### 1. The "4D" Market Observation Model
-The system calculates a daily "Market Observation Score" (0-100) to gauge overall market health:
-*   **Capital Flow (40 pts)**: Total market turnover + Northbound fund flows (HK-Shanghai/Shenzhen).
-*   **Sentiment (30 pts)**: Index momentum (Shanghai/Shenzhen/ChiNext) + Limit-up/down ratios.
-*   **Macro (20 pts)**: Systemic risk derived from Polymarket events (e.g., Fed rate cuts, trade wars).
-*   **Technical (10 pts)**: Technical resonance across major indices.
-
-### 2. Recommendation & Review Engine (v0.6)
-*   **Morning (08:00)**: Scans T-1 sector capital flows (East Money API). Identifies Top 3 sectors -> Top 3 stocks per sector. Writes to DB as `PENDING`.
-*   **Afternoon (15:30)**: Reviews `PENDING` stocks against actual T-day closing prices. Calculates theoretical returns, max drawdown, and excess returns vs. benchmark. Updates status to `REVIEWED`.
-
-### 3. Paper Trading Loop
-The system maintains a virtual portfolio (`Paper Trading`) that:
-*   Tracks entry prices (Open + 0.2% slippage).
-*   Monitors daily performance against the **CSI 300** and **Equal-Weight** benchmarks.
-*   Triggers a "Kill Switch" if drawdowns exceed safety thresholds.
-
-### 4. Strict Anti-Look-Ahead Bias
-*   **Point-in-Time (PIT)**: All features are strictly timestamped. Predictions for Day T can *only* use data available before 08:00 on Day T.
-*   **Locked Predictions**: Once a prediction is generated, it is written to a snapshot table and locked. Reality (closing prices) is only applied *after* market close.
-*   **RAW Prices**: Backtests use un-adjusted (RAW) prices to avoid distortions from forward-adjustment factors.
+系统定位为**“自动化交易参谋”**，主要执行：
+1. **宏观-微观映射**：将全球预测市场（如降息、地缘政治）的概率波动，转化为 A 股板块的潜在机会。
+2. **四维量化打分**：对资金流向、市场情绪、宏观风险和技术面进行量化评分。
+3. **动态风控**：基于日内振幅的自适应止损（Daily Range Proxy），而非固定百分比止损。
+4. **自我审计**：严格的时间切片（Point-in-Time）数据隔离，杜绝“偷看未来”偏差。
 
 ---
 
-## 📂 Directory Structure
+## 🧠 核心工作原理
+
+### 1. “四维”市场观察模型
+系统每日计算“市场观察评分”（0-100分）以评估大盘健康度：
+* **资金面 (40分)**：全市场成交额 + 北向资金（沪深股通）流向。
+* **情绪面 (30分)**：指数（上证/深成/创业板）动量 + 涨跌停家数比。
+* **宏观面 (20分)**：基于 Polymarket 事件的系统性风险评分（如美联储利率、贸易战风险）。
+* **技术面 (10分)**：多指数技术共振情况。
+
+### 2. 推荐与复盘引擎 (v0.6)
+* **盘前推荐 (08:00)**：扫描 T-1 日的板块资金流（东方财富 API）。锁定资金净流入 Top 3 的板块 -> 板块内个股 Top 3。写入数据库标记为 `PENDING`。
+* **盘后复盘 (15:30)**：将 `PENDING` 的推荐标的与 T 日实际收盘价对比。计算理论收益、最大回撤及相对超额收益。将状态更新为 `REVIEWED`。
+
+### 3. 虚拟盘观察 (Paper Trading)
+系统维护一个虚拟投资组合：
+* **买入执行**：模拟 T 日开盘价 + 0.2% 滑点。
+* **基准对比**：每日监控表现，对比 **沪深 300** 和 **等权持仓** 基准。
+* **Kill Switch**：当回撤超过安全阈值时，触发强制降仓机制。
+
+### 4. 严格的防“偷看未来”机制 (Anti-Look-Ahead Bias)
+* **时间切片 (PIT)**：所有特征数据均有严格的时间戳。T 日的预测只能使用 T 日 08:00 之前可见的数据。
+* **预测锁定**：预测生成后立即写入快照表并锁定，不可篡改。
+* **真实价格 (RAW)**：回测和模拟使用未复权（RAW）价格，避免前复权因子导致的收益率扭曲。
+
+---
+
+## 📂 目录结构
 
 ```text
 .
-├── SKILL.md                   # 🔑 Core Agent Instruction (Logic, APIs, Constraints)
-├── README.md                  # 📖 This file: Project overview and docs
-├── references/                # 📚 Detailed Documentation & Audits
-│   ├── v05-beta-v3-evaluation.md   # Complete backtest evaluation & failure analysis
-│   ├── evolution-engine.md         # Champion/Challenger mechanism docs
-│   ├── data-sources-api.md         # API details (East Money, Sina, Tencent)
-│   ├── cron-compliance-framework.md# Reporting standards
+├── SKILL.md                   # 🔑 智能体核心指令（逻辑、API、约束）
+├── README.md                  # 📖 项目概览与文档
+├── references/                # 📚 详细文档与审计报告
+│   ├── v05-beta-v3-evaluation.md   # 完整回测评估与失败归因
+│   ├── evolution-engine.md         # 冠军/挑战者进化引擎机制
+│   ├── data-sources-api.md         # API 详解（东方财富、新浪、腾讯）
+│   ├── cron-compliance-framework.md# Cron 报告合规标准
 │   └── ...
-└── scripts/                   # 🛠️ Core Scripts
-    └── quant_v2/              # v0.6 Modules (Recommendation/Review Engines)
+└── scripts/                   # 🛠️ 核心脚本
+    └── quant_v2/              # v0.6 模块（推荐/复盘引擎）
 ```
 
 ---
 
-## 📊 Current System Status (As of 2026-05-30)
+## 📊 当前系统状态 (截至 2026-05-30)
 
-### ✅ Completed & Working
-*   **Data Pipeline**: Stable connection to East Money & Sina APIs via proxy architecture.
-*   **Scoring Engine**: 4D scoring card and capital flow analysis running daily.
-*   **Recommendation Logic**: Sector -> Stock mapping logic implemented (v0.6).
-*   **Compliance**: System strictly reports as "v0.5-beta Paper Trading", no live signals.
+### ✅ 已完成功能
+* **数据链路**：通过代理架构稳定连接东方财富与新浪 API。
+* **评分引擎**：四维打分卡与资金流分析已上线每日运行。
+* **推荐逻辑**：板块 -> 个股映射逻辑已实现 (v0.6)。
+* **合规报告**：系统严格执行 v0.5-beta 标准，仅输出观察报告，绝不输出实盘信号。
 
-### ❌ Known Issues / To-Do
-*   **Strategy Invalidation**: Momentum strategy (+3.68%) significantly underperformed Equal-Weight (+23.14%). 62% of random portfolios beat the strategy.
-*   **Data Universe**: Currently testing on only 78 stocks (Deep Market Small Caps). Needs expansion to full market (5000+).
-*   **Execution Simulation**: Needs minute-level data for precise limit-up/down handling.
-
----
-
-## 🚫 Disclaimer
-
-**This is a monitoring and research tool, NOT a trading signal generator.**  
-All outputs are for **Paper Trading / Data Chain Verification** purposes only. Do not execute real trades based on these reports.
+### ❌ 已知问题 / 待改进
+* **策略失效**：当前动量策略（年化 +3.68%）显著跑输等权基准（+23.14%），且 62% 的随机组合均跑赢策略。
+* **股票池太小**：目前仅测试了 78 只深市小盘股，需扩展至全市场（5000+ 只）。
+* **执行模拟**：涨跌停处理目前仅为基础近似，未来需要分钟级数据支持。
 
 ---
 
-## 🛠️ Deployment (For Developers)
+## 🚫 免责声明
 
-1.  **Requirements**: Python 3.11+, SQLite.
-2.  **Environment**: Requires HTTP proxy for accessing Chinese financial APIs (East Money, etc.) if outside China.
-3.  **Scripts**:
-    *   `scripts/a_stock_data.py`: Data collector.
-    *   `scripts/quant_v2/main.py`: Main scoring engine.
-4.  **Configuration**: Edit `config.py` or set env vars (`EASTMONEY_PROXY`).
+**这是一个监控与研究工具，绝非实盘交易信号生成器。**
+所有输出仅供 **虚拟盘观察 / 数据链路验证** 使用。严禁基于此报告进行实盘交易。
+
+---
+
+## 🛠️ 部署说明 (开发者)
+
+1. **环境要求**: Python 3.11+, SQLite.
+2. **网络环境**: 需配置 HTTP 代理以访问中国大陆金融 API（东方财富等）。
+3. **核心脚本**:
+    * `scripts/a_stock_data.py`: 数据采集器。
+    * `scripts/quant_v2/main.py`: 主评分引擎。
+4. **配置**: 修改 `config.py` 或设置环境变量（如 `EASTMONEY_PROXY`）。
 
 ---
 
